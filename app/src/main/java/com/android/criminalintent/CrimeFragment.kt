@@ -9,10 +9,12 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import java.util.*
+import java.util.Date
+import java.util.UUID
 
 private const val ARG_CRIME_ID = "crime_id"
 private const val DIALOG_DATE = "DialogDate"
@@ -56,6 +58,9 @@ class CrimeFragment : Fragment(), DatePickerFragment.Callbacks {
                 updateUI()
             }
         })
+
+        val appCompatActivity = activity as AppCompatActivity
+        appCompatActivity.supportActionBar?.setTitle(R.string.new_crime)
     }
 
     override fun onStart() {
@@ -108,10 +113,7 @@ class CrimeFragment : Fragment(), DatePickerFragment.Callbacks {
     private fun updateUI() {
         titleField.setText(crime.title)
         dateButton.text = crime.date.toString()
-        solvedCheckBox.apply {
-            isChecked = crime.isSolved
-            jumpDrawablesToCurrentState()
-        }
+        solvedCheckBox.isChecked = crime.isSolved
     }
 
     companion object {
